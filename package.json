@@ -2,8 +2,18 @@
   "name": "practice-makes-perfect",
   "version": "1.0.0",
   "repository": "git@github.com:angela-mao/Practice-Makes-Perfect.git",
+  "scripts": {
+    "install": "npm run install-client && npm run install-server",
+    "install-client": "cd client && yarn",
+    "install-server": "cd server && yarn",
+    "start": "npm run watch",
+    "watch-client": "cd client && npm start",
+    "watch-server": "cd server && nodemon index.js",
+    "watch": "concurrently \"npm:watch-*\""
+  },
   "license": "MIT",
   "dependencies": {
-    "concurrently": "^6.2.0"
+    "concurrently": "^6.2.0",
+    "nodemon": "^2.0.7"
   }
 }
