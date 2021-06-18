@@ -8,7 +8,7 @@ app.get("/", (req, res) => {
 });
 
 app.get("/api", (req, res) => {
-  res.json({ message: "Example endpoint" });
+  res.json({ message: "example message value" });
 });
 
 // start express server on port
