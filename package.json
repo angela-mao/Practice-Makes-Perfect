@@ -1,0 +1,9 @@
+{
+  "name": "practice-makes-perfect",
+  "version": "1.0.0",
+  "repository": "git@github.com:angela-mao/Practice-Makes-Perfect.git",
+  "license": "MIT",
+  "dependencies": {
+    "concurrently": "^6.2.0"
+  }
+}
