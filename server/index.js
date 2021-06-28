@@ -5,6 +5,17 @@ const server = require("http").createServer(app);
 const cors = require("cors");
 const mysql = require("mysql");
 
+const appRoutes = require('./routes/app');
+const apiRoutes = require('./routes/api');
+
+const io = require("socket.io")(server, {
+  cors: {
+    origin: "*",
+    methods: ["GET", "POST"],
+  },
+});
+require('./sockets')(io);
+
 const connection = mysql.createConnection({
   host: process.env.DB_HOST,
   user: process.env.DB_USER,
@@ -21,24 +32,16 @@ connection.connect(function (err) {
   console.log("connected as id " + connection.threadId);
 });
 
-const io = require("socket.io")(server, {
-  cors: {
-    origin: "*",
-    methods: ["GET", "POST"],
-  },
-});
-
 app.use(cors());
 
+// routes
+app.use('/', appRoutes);
+app.use('/api', apiRoutes);
+
+// socket
+app.set('socketio', io);
+
 const PORT = process.env.PORT || 3001;
-
-app.get("/", (req, res) => {
-  res.send("This is from express.js");
-});
-
-app.get("/api", (req, res) => {
-  res.json({ message: "example message value" });
-});
 
 // start express server on port
 app.listen(PORT, () => {
