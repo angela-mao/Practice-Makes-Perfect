@@ -41,9 +41,14 @@ app.use('/api', apiRoutes);
 // socket
 app.set('socketio', io);
 
-const PORT = process.env.PORT || 3001;
+const API_PORT = process.env.API_PORT || 3001;
+const SOCKET_PORT = process.env.SOCKET_PORT || 3002;
 
 // start express server on port
-app.listen(PORT, () => {
-  console.log(`server started on port ${PORT}`);
+app.listen(API_PORT, () => {
+  console.log(`server started on port ${API_PORT}`);
 });
+
+server.listen(SOCKET_PORT, () => {
+  console.log(`socket listening on port ${SOCKET_PORT}`);
+})
