@@ -1,0 +1,22 @@
+.App {
+  height: 100%;
+  overflow: auto;
+  display: flex;
+  justify-content: center;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+.App__Menu {
+  overflow: auto;
+  margin: auto;
+  text-align: center;
+}
+
+.App__Label {
+  display: flex;
+  flex-direction: column;
+}
+
