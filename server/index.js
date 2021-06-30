@@ -1,5 +1,6 @@
 require("dotenv").config();
 const express = require("express");
+const bodyParser = require("body-parser");
 const app = express(); // create express app
 const server = require("http").createServer(app);
 const cors = require("cors");
@@ -14,7 +15,6 @@ const io = require("socket.io")(server, {
     methods: ["GET", "POST"],
   },
 });
-require('./sockets')(io);
 
 const connection = mysql.createConnection({
   host: process.env.DB_HOST,
@@ -32,7 +32,9 @@ connection.connect(function (err) {
   console.log("connected as id " + connection.threadId);
 });
 
+// middleware
 app.use(cors());
+app.use(bodyParser.json());
 
 // routes
 app.use('/', appRoutes);
@@ -52,3 +54,6 @@ app.listen(API_PORT, () => {
 server.listen(SOCKET_PORT, () => {
   console.log(`socket listening on port ${SOCKET_PORT}`);
 })
+
+require('./sockets')(io);
+
