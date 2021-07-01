@@ -16,11 +16,12 @@ const io = require("socket.io")(server, {
   },
 });
 
+// connecting to database
 const connection = mysql.createConnection({
   host: process.env.DB_HOST,
   user: process.env.DB_USER,
   password: process.env.DB_PASS,
-  database: "questionsDB",
+  database: "questionsDB"
 });
 
 connection.connect(function (err) {
@@ -56,4 +57,31 @@ server.listen(SOCKET_PORT, () => {
 })
 
 require('./sockets')(io);
+
+app.use(
+    express.urlencoded({
+      extended: true
+    })
+)
+
+app.use(express.json())
+
+app.get('/tags', (req, res) => {
+  connection.query('SELECT * FROM Tags', function (err, result) {
+    if (err) return console.log(err);
+    res.send(result);
+  });
+});
+
+app.post('/random', (req, res) => {
+  console.log(req.body.TagID);
+  var id = req.body.TagID;
+  var sql = 'SELECT Question FROM Questions INNER JOIN TagsOfQues ON TagsOfQues.QuestionID = Questions.QuestionID WHERE TagsOfQues.TagID = ?';
+  connection.query(sql, [id], function (err, result) {
+    if (err) return console.log(err);
+    const random = Math.floor(Math.random() * result.length);
+    res.send(result[random]);
+  });
+});
+
 
