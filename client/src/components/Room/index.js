@@ -5,6 +5,7 @@ import axios from 'axios';
 import DropdownButton from 'react-bootstrap/DropdownButton';
 import Dropdown from 'react-bootstrap/Dropdown'
 import 'bootstrap/dist/css/bootstrap.min.css';
+import Header from "../Header/index.js"
 
 const Room = () => {
   const { code } = useParams();
@@ -31,6 +32,7 @@ const Room = () => {
 
   return (
     <div>
+      <Header />
       <h1>
         Room
       </h1>

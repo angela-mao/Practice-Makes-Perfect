@@ -35,7 +35,10 @@ connection.connect(function (err) {
 
 // middleware
 app.use(cors());
-app.use(bodyParser.json());
+app.use(express.json());
+app.use(express.urlencoded({
+  extended: true
+}));
 
 // routes
 app.use('/', appRoutes);
@@ -85,3 +88,7 @@ app.post('/random', (req, res) => {
 });
 
 
+app.post('/questions/:name/:category', (req, res) => {
+  // expecting post to /questions/{name}/{category}?tags=["tag1", "tag2"]
+  const tags = req.query.tags;
+})
