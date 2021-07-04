@@ -1,4 +1,5 @@
 import React from "react";
+import ListTags from "./ListTags";
 import { Form } from "react-bootstrap";
 import "./index.css";
 
@@ -13,6 +14,7 @@ const AddQuestions = () => {
         </Form.Group>
         <Form.Group>
           <Form.Label>Category</Form.Label>
+          <ListTags />
         </Form.Group>
         <Form.Group>
           <Form.Label>Tags</Form.Label>
