@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import {useParams} from "react-router-dom";
-import { SocketContext } from "../../context/SocketContext";
+import { SocketContext } from "../context/SocketContext";
 import axios from 'axios';
 import DropdownButton from 'react-bootstrap/DropdownButton';
 import Dropdown from 'react-bootstrap/Dropdown'

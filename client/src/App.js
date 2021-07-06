@@ -1,8 +1,8 @@
 import React, { useContext, useState, useRef, useEffect } from "react";
 import { BrowserRouter, Switch, Route, Redirect, Link } from "react-router-dom";
-import "./App.css";
-import { SocketContext } from "../../context/SocketContext";
-import Room from "../Room";
+import "./styles/App.css";
+import { SocketContext } from "./context/SocketContext";
+import Room from "./components/Room";
 
 function postRoom(socketId) {
   let body = {
