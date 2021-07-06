@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
+import { BrowserRouter } from 'react-router-dom';
 import App from './App';
 // import reportWebVitals from './reportWebVitals';
 import { ContextProvider } from './context/SocketContext';
@@ -8,7 +9,9 @@ import { ContextProvider } from './context/SocketContext';
 ReactDOM.render(
   <React.StrictMode>
     <ContextProvider>
-      <App />
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
     </ContextProvider>
   </React.StrictMode>,
   document.getElementById('root')

@@ -1,49 +1,54 @@
 import React, { useContext, useState, useRef, useEffect } from "react";
-import { BrowserRouter, Switch, Route, Redirect, Link } from "react-router-dom";
+import { Switch, Route, Link, useHistory } from "react-router-dom";
 import "./styles/App.css";
 import { SocketContext } from "./context/SocketContext";
 import Room from "./components/Room";
 
-function postRoom(socketId) {
+async function postRoom(socketId) {
   let body = {
     socketId
   }
-  
-  return fetch("http://localhost:3000/room", {
+  let res = await fetch("http://localhost:3000/room", {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify(body)
-  }).then((data) => data.json());
+  });
+
+  return res.json();
 }
 
 function App() {
   const { me } = useContext(SocketContext);
   const [roomCode, setRoomCode] = useState('');
   const inputEl = useRef(null);
+  const history = useHistory();
 
-  const createRoom = (socketId) => {
-    postRoom(socketId).then((res) => {
-      setRoomCode(res.roomCode);
-    })
+  /* Return roomcode */
+  const createRoom = async (socketId) => {
+    let resJson = await postRoom(socketId);
+    return resJson.roomCode;
   }
 
-  const handleClick = (e) => {
-    createRoom(me);
+  const enterRoom = (roomCode) => {
+    setRoomCode(roomCode);
+    history.push("/" + roomCode);
+  }
+
+  const handleClick = async (e) => {
+    let roomCode = await createRoom(me);
+    console.log(roomCode);
+    enterRoom(roomCode);
   }
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setRoomCode(inputEl.current.value);
+    let roomCode = inputEl.current.value;
+    enterRoom(roomCode);
   }
 
   const getMenu = () => {
-    if (roomCode) {
-      console.log("redirect", roomCode);
-      return <Redirect to={"/" + roomCode} />
-    }
-
     return (
       <div className="App__Menu">
         <h1>Practice Makes Perfect</h1>
@@ -61,16 +66,14 @@ function App() {
 
   return (
     <div className="App">
-      <BrowserRouter>
-        <Switch>
-          <Route exact path="/">
-            {getMenu()}
-          </Route>
-          <Route path="/:code" >
-            <Room />
-          </Route>
-        </Switch>
-      </BrowserRouter>
+      <Switch>
+        <Route exact path="/">
+          {getMenu()}
+        </Route>
+        <Route path="/:code" >
+          <Room />
+        </Route>
+      </Switch>
     </div>
   );
 }
