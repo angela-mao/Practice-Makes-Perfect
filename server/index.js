@@ -1,10 +1,8 @@
-require("dotenv").config();
 const express = require("express");
 const bodyParser = require("body-parser");
 const app = express(); // create express app
 const server = require("http").createServer(app);
 const cors = require("cors");
-const mysql = require("mysql");
 
 const appRoutes = require('./routes/app');
 const apiRoutes = require('./routes/api');
@@ -15,24 +13,6 @@ const io = require("socket.io")(server, {
     origin: "*",
     methods: ["GET", "POST"],
   },
-});
-
-
-// connecting to database
-const connection = mysql.createConnection({
-  host: process.env.DB_HOST,
-  user: process.env.DB_USER,
-  password: process.env.DB_PASS,
-  database: "questionsDB"
-});
-
-connection.connect(function (err) {
-  if (err) {
-    console.error("error connecting: " + err.stack);
-    return;
-  }
-
-  console.log("connected as id " + connection.threadId);
 });
 
 // middleware
@@ -59,32 +39,6 @@ server.listen(SOCKET_PORT, () => {
 })
 
 require('./sockets')(io);
-
-app.use(
-    express.urlencoded({
-      extended: true
-    })
-)
-
-app.use(express.json())
-
-app.get('/tags', (req, res) => {
-  connection.query('SELECT * FROM Tags', function (err, result) {
-    if (err) return console.log(err);
-    res.send(result);
-  });
-});
-
-app.post('/random', (req, res) => {
-  console.log(req.body.TagID);
-  var id = req.body.TagID;
-  var sql = 'SELECT Question FROM Questions INNER JOIN TagsOfQues ON TagsOfQues.QuestionID = Questions.QuestionID WHERE TagsOfQues.TagID = ?';
-  connection.query(sql, [id], function (err, result) {
-    if (err) return console.log(err);
-    const random = Math.floor(Math.random() * result.length);
-    res.send(result[random]);
-  });
-});
 
 app.post('/addentry', (req, res) => {
   console.log("print");

@@ -1,5 +1,16 @@
 var express = require('express');
 var router = express.Router();
+const { getAllTags } = require('../services/tagService');
+const { getRandomQues } = require('../services/questionService');
+
+// to send data through post request
+router.use(
+    express.urlencoded({
+      extended: true
+    })
+)
+
+router.use(express.json())
 
 // store rooms
 let rooms = {}
@@ -36,6 +47,14 @@ router.post("/room", (req, res) => {
   }
 
   res.json({ roomCode });
+});
+
+router.get('/tags', (req, res) => {
+  getAllTags(req, res);
+});
+
+router.post('/random', (req, res) => {
+  getRandomQues(req, res);
 });
 
 module.exports = router;
