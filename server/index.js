@@ -38,7 +38,7 @@ server.listen(SOCKET_PORT, () => {
   console.log(`socket listening on port ${SOCKET_PORT}`);
 })
 
-require('./sockets')(io);
+require('./socket/sockets')(io);
 
 app.post('/addentry', (req, res) => {
   console.log("print");
