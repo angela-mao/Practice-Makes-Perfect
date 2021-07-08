@@ -8,6 +8,7 @@ const mysql = require("mysql");
 
 const appRoutes = require('./routes/app');
 const apiRoutes = require('./routes/api');
+const { connect } = require("./routes/app");
 
 const io = require("socket.io")(server, {
   cors: {
@@ -15,6 +16,7 @@ const io = require("socket.io")(server, {
     methods: ["GET", "POST"],
   },
 });
+
 
 // connecting to database
 const connection = mysql.createConnection({
@@ -84,4 +86,27 @@ app.post('/random', (req, res) => {
   });
 });
 
+app.post('/addentry', (req, res) => {
+  console.log("print");
+  console.log(req.body);
+  const tag =  req.body.tag;
+  const query = "INSERT INTO Tags (Tag) VALUES (?);";
+  connection.query(query, [tag], function (err, result) {
+    if (err) return console.log("error is :" + err);
+    console.log("runs");
+    res.send(query);
+  });
+});
 
+app.post('/deleteentry', (req, res) => {
+  console.log("print");
+  console.log(req.body);
+  const tag =  req.body.tag;
+  let tagID;
+  const query = "DELETE FROM Tags WHERE Tag=(?)";
+  connection.query(query, [tag], function (err, result) {
+    if (err) return console.log("error is :" + err);
+    console.log("runs");
+    res.send(query);
+  });
+});
