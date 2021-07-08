@@ -50,11 +50,15 @@ router.post("/room", (req, res) => {
 });
 
 router.get('/tags', (req, res) => {
-  getAllTags(req, res);
+  getAllTags((tags) => {
+    res.send(tags);
+  });
 });
 
 router.post('/random', (req, res) => {
-  getRandomQues(req, res);
+  getRandomQues(req.body.TagID, (question) => {
+    res.send(question);
+  });
 });
 
 module.exports = router;

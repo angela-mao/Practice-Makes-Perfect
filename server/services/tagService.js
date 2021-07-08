@@ -1,9 +1,9 @@
 const { getTagsFromDB } = require('../models/tagModel');
 
-function getAllTags(req, res) {
+function getAllTags(handleResult) {
     getTagsFromDB((err, tags) => {
         if (err) return console.log(err);
-        res.send(tags);
+        handleResult(tags);
     })
 }
 
