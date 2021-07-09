@@ -8,7 +8,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 const Room = () => {
   const { code } = useParams();
-  const { joinRoom } = useContext(SocketContext);
+  const { questionId, joinRoom, updateQuestion } = useContext(SocketContext);
 
   useEffect(() => {
     console.log("joining " + code);
@@ -29,6 +29,11 @@ const Room = () => {
           .then(response => console.log(response.data.Question));
   }
 
+  const updateQuestionHandler = () => {
+    // Pass user's question Id
+    updateQuestion("1234");
+  }
+
   return (
     <div>
       <h1>
@@ -36,6 +41,9 @@ const Room = () => {
       </h1>
       <div>
         Room code: {code}
+      </div>
+      <div>
+        Question id: {questionId}
       </div>
         <DropdownButton
             alignRight
@@ -46,6 +54,9 @@ const Room = () => {
         >
             {tagsArray}
         </DropdownButton>
+        <div>
+          <button onClick={updateQuestionHandler}>Update Question test</button>
+        </div>
     </div>
   )
 }
