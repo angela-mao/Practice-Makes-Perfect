@@ -22,7 +22,7 @@ const Room = () => {
           .then(response => setTags(response.data))
   }, []);
 
-  let tagsArray = tags.map(tag => <Dropdown.Item eventKey={JSON.stringify(tag.TagID)}>{tag.Tag}</Dropdown.Item>);
+  let tagsArray = tags.map((tag, index) => <Dropdown.Item key={index} eventKey={JSON.stringify(tag.TagID)}>{tag.Tag}</Dropdown.Item>);
 
   const handleSelect= (e) =>{
       axios.post('/random', {TagID: e})
