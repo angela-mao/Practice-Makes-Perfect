@@ -8,8 +8,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 const Room = () => {
   const { code } = useParams();
-  const { questionId, joinRoom, updateQuestion } = useContext(SocketContext);
-
+  const { me, questionId, joinRoom, updateQuestion, setQuestionId } = useContext(SocketContext);
+  
   useEffect(() => {
     console.log("joining " + code);
     joinRoom(code);
@@ -31,7 +31,9 @@ const Room = () => {
 
   const updateQuestionHandler = () => {
     // Pass user's question Id
-    updateQuestion("1234");
+    let questionId = Math.floor(Math.random() * 1000);
+    setQuestionId(questionId);
+    updateQuestion(questionId);
   }
 
   return (
@@ -41,6 +43,9 @@ const Room = () => {
       </h1>
       <div>
         Room code: {code}
+      </div>
+      <div>
+        Socket id: {me}
       </div>
       <div>
         Question id: {questionId}

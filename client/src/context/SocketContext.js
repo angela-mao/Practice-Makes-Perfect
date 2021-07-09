@@ -1,4 +1,4 @@
-import React, { createContext, useState, useRef, useEffect} from 'react';
+import React, { createContext, useState, useRef, useEffect, useCallback} from 'react';
 import { io } from 'socket.io-client';
 
 const SocketContext = createContext();
@@ -14,12 +14,16 @@ const ContextProvider = ({ children }) => {
 
     socket.on('message', (msg) => {console.log(msg)});
 
+    socket.on('join', (socketId) => {
+      socket.emit('room-info', socketId, questionId);
+    });
+
     socket.on('new-question', (questionId) => setQuestionId(questionId));
   });
 
-  const joinRoom = (roomId) => {
+  const joinRoom = useCallback((roomId) => {
     socket.emit("joinRoom", roomId);
-  }
+  }, [])
 
   const updateQuestion = (id) => {
     socket.emit("updateQuestion", id);
@@ -30,7 +34,8 @@ const ContextProvider = ({ children }) => {
       me,
       questionId,
       joinRoom,
-      updateQuestion
+      updateQuestion,
+      setQuestionId
     }}>
       {children}
     </SocketContext.Provider>
