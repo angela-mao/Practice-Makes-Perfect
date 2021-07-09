@@ -13,7 +13,7 @@ router.use(
 router.use(express.json())
 
 // store rooms
-let rooms = {}
+let rooms = {};
 
 function genRoomCode() {
   let codeLength = 6;
