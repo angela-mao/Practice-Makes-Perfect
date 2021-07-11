@@ -1,17 +1,28 @@
-var express = require('express');
+var express = require("express");
 var router = express.Router();
+const { getAllTags } = require("../services/tagService");
+const { getRandomQues, addQuestion } = require("../services/questionService");
+
+// to send data through post request
+router.use(
+  express.urlencoded({
+    extended: true,
+  })
+);
+
+router.use(express.json());
 
 // store rooms
-let rooms = {}
+let rooms = {};
 
 function genRoomCode() {
   let codeLength = 6;
-  let lower = 'abcdefghjkmnpqrstuvwxyz';
-  let upper = 'ABCDEFGHJKMNPQRSTUVWXYZ';
-  let num = '23456789';
+  let lower = "abcdefghjkmnpqrstuvwxyz";
+  let upper = "ABCDEFGHJKMNPQRSTUVWXYZ";
+  let num = "23456789";
   let all = lower + upper + num;
 
-  let code = '';
+  let code = "";
   for (let i = 0, n = all.length; i < codeLength; ++i) {
     code += all.charAt(Math.floor(Math.random() * n));
   }
@@ -32,10 +43,29 @@ router.post("/room", (req, res) => {
   // store room id
   rooms[roomCode] = {
     roomName: roomCode,
-    clients: []
-  }
+    clients: [],
+  };
 
   res.json({ roomCode });
+});
+
+router.post("/question", (req, res) => {
+  const { question, tagIDs } = req.body;
+  console.log(req.body)
+  addQuestion(question, tagIDs);
+  res.send("Hello");
+});
+
+router.get("/tags", (req, res) => {
+  getAllTags((tags) => {
+    res.send(tags);
+  });
+});
+
+router.post("/random", (req, res) => {
+  getRandomQues(req.body.TagID, (question) => {
+    res.send(question);
+  });
 });
 
 module.exports = router;

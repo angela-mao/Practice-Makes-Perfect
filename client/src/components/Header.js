@@ -1,6 +1,6 @@
 import React from "react";
-import AddQuestion from "./AddQuestion/index";
-import "./index.css";
+import AddQuestion from "./AddQuestion";
+import "../styles/Header.css";
 
 const Header = () => {
   return (
