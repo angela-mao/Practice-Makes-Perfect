@@ -34,6 +34,20 @@ const Room = () => {
     updateQuestion("1234");
   }
 
+  
+  // add entry to DB
+  const [inputVal, setInputVal] = useState('');
+
+  const addEntry = () => {
+    console.log(inputVal);
+    axios.post('/addtag', {Tag: inputVal});
+  }
+
+  const deleteEntry = () => {
+    console.log(inputVal);
+    axios.post('/deletetag', {Tag: inputVal});
+  }
+
   return (
     <div>
       <h1>
@@ -57,6 +71,11 @@ const Room = () => {
         <div>
           <button onClick={updateQuestionHandler}>Update Question test</button>
         </div>
+      <div>
+        <input onChange={event => setInputVal(event.target.value)} />
+        <button onClick={addEntry}>Add Tag</button>
+        <button onClick={deleteEntry}>Delete Tag</button>
+      </div>
     </div>
   )
 }

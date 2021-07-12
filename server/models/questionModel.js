@@ -7,4 +7,19 @@ function getQuestions(id, result) {
     });
 }
 
-module.exports = { getQuestions };
+function addTagToDB(tag, handleResult) {
+    let sql = 'INSERT INTO Tags (Tag) VALUES (?);';
+    connection.query(sql, [tag], function (err, result) {
+        handleResult(err);
+    });
+}
+
+function deleteTagFromDB(tag, handleResult) {
+    let sql = 'DELETE FROM Tags WHERE Tag=(?)';
+    connection.query(sql, [tag], function (err, result) {
+        handleResult(err);
+    });
+}
+
+
+module.exports = { getQuestions, addTagToDB, deleteTagFromDB };
