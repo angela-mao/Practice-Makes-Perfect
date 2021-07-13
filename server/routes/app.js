@@ -56,7 +56,7 @@ router.get('/tags', (req, res) => {
 });
 
 router.post('/random', (req, res) => {
-  getRandomQues(req.body.TagID, (question) => {
+  getRandomQues(req.body.TagIDs, (question) => {
     res.send(question);
   });
 });
