@@ -1,0 +1,11 @@
+.form-group {
+    font-family: Roboto;
+    text-align: center;
+    width: 150px;
+}
+
+.form-control {
+    text-align: center !important;
+    background-color: #F4F6F5 !important;
+    border: 2px solid #EDEDED !important;
+}

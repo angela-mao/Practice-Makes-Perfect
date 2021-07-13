@@ -1,0 +1,15 @@
+.question, .tags {
+    font-family: Roboto;
+    width: 60vw;
+    background-color: #F3E7E7;
+    margin: 10px 0px;
+    padding: 9px 18px;
+}
+
+.question {
+    font-size: 35px;
+}
+
+.tags {
+    font-size: 20px;
+}
