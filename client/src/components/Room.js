@@ -1,10 +1,9 @@
-import React, {useContext, useEffect, useState, useRef} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {useParams} from "react-router-dom";
 import {SocketContext} from "../context/SocketContext";
 import Header from "./Header";
 import QuestionText from "./QuestionText";
 import { getRandomQues } from '../api/QuestionAPI';
-import { addTag, deleteTag } from "../api/TagAPI";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "../styles/Room.css";
 
@@ -19,8 +18,6 @@ const Room = () => {
 
     const [selectedTags, setTags] = useState({tagIDs: [], tags: []});
     const [question, setQuestion] = useState({Question: 'Press the "New Question" button', Tag: 'None'});
-    const [inputVal, setInputVal] = useState('');
-    const tagInput = useRef('');
 
     const handleSelect = () => {
         getRandomQues(selectedTags.tagIDs)
@@ -30,16 +27,6 @@ const Room = () => {
     const updateQuestionHandler = () => {
         // Pass user's question Id
         updateQuestion("1234");
-    }
-
-    const handleAdd = () => {
-        tagInput.current.value='';
-        addTag(inputVal);
-    }
-
-    const handleDelete = () => {
-        tagInput.current.value='';
-        deleteTag(inputVal);
     }
 
     return (
@@ -60,11 +47,6 @@ const Room = () => {
             </div>
             <div>
                 <button type="button" onClick={updateQuestionHandler}>Update Question test</button>
-            </div>
-            <div>
-                <input type="text" ref={tagInput} onChange={event => setInputVal(event.target.value)} />
-                <button type="button" onClick={handleAdd}>Add Tag</button>
-                <button type="button" onClick={handleDelete}>Delete Tag</button>
             </div>
         </div>
     )
