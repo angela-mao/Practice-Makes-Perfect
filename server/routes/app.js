@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 const { getAllTags } = require('../services/tagService');
-const { getRandomQues } = require('../services/questionService');
+const { getRandomQues, addTag, deleteTag } = require('../services/questionService');
 
 // to send data through post request
 router.use(
@@ -58,6 +58,20 @@ router.get('/tags', (req, res) => {
 router.post('/random', (req, res) => {
   getRandomQues(req.body.TagID, (question) => {
     res.send(question);
+  });
+});
+
+router.post('/addtag', (req, res) => {
+  addTag(req.body.Tag, (err) => {
+    if (err) res.send(409);
+    res.send(200);
+  });
+});
+
+router.post('/deletetag', (req, res) => {
+  deleteTag(req.body.Tag, (err) => {
+    if (err) res.send(409);
+    res.send(200);
   });
 });
 
