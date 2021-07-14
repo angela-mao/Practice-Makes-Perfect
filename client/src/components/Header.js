@@ -7,9 +7,18 @@ import "../styles/Header.css";
 function Header(props) {
     return (
         <div className="header">
-            <Tags onClick={props.onClick}/>
-            <AddTag />
-            <AddQuestion tagIDs={props.tags.tagIDs}/>
+            <div className="logo">
+                PMP
+            </div>
+            <div className="tagMenu">
+                <Tags onClick={props.onClick}/>
+            </div>
+            <div className="addTag">
+                <AddTag/>
+            </div>
+            <div className="addQuestion">
+                <AddQuestion tagIDs={props.tags.tagIDs}/>
+            </div>
         </div>
     );
 };

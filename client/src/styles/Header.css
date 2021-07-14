@@ -1,6 +1,38 @@
 .header {
+    display: flex;
     width: 100vw;
-    height: 200px;
-    background-color: darkgrey;
+    height: 140px;
+    background-color: #625F5F;
     padding: 30px;
+    align-items: center;
+}
+
+.logo {
+    font-family: Roboto;
+    font-weight: bold;
+    color: #F3E7E7;
+    font-size: 60px;
+    margin-left: 20px;
+    margin-right: 150px;
+}
+
+.tagMenu {
+    margin: 0px 20px 20px 20px;
+}
+
+.form-group {
+    font-family: Roboto;
+    font-weight: bold;
+    text-align: center;
+    width: 150px;
+}
+
+.form-control {
+    text-align: center !important;
+    background-color: #F4F6F5 !important;
+    border: 2px solid #EDEDED !important;
+}
+
+.addTag, .addQuestion {
+    margin: 20px;
 }

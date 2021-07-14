@@ -3,13 +3,13 @@ import {useParams} from "react-router-dom";
 import {SocketContext} from "../context/SocketContext";
 import Header from "./Header";
 import QuestionText from "./QuestionText";
-import { getRandomQues } from '../api/QuestionAPI';
+import {getRandomQues} from '../api/QuestionAPI';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "../styles/Room.css";
 
 const Room = () => {
     const {code} = useParams();
-    const { questionId, joinRoom, updateQuestion } = useContext(SocketContext);
+    const {questionId, joinRoom, updateQuestion} = useContext(SocketContext);
 
     useEffect(() => {
         console.log("joining " + code);
@@ -32,21 +32,23 @@ const Room = () => {
     return (
         <div>
             <Header tags={selectedTags} onClick={setTags}/>
-            <h1>
-                Room
-            </h1>
-            <div>
-                Room code: {code}
-            </div>
-            <div>
-                Question id: {questionId}
-            </div>
-            <QuestionText questionText={question}/>
-            <div>
-                <button type="button" onClick={handleSelect}>New Question</button>
-            </div>
-            <div>
-                <button type="button" onClick={updateQuestionHandler}>Update Question test</button>
+            <div className="main">
+                <h1>
+                    Room
+                </h1>
+                <div>
+                    Room code: {code}
+                </div>
+                <div>
+                    Question id: {questionId}
+                </div>
+                <QuestionText questionText={question}/>
+                <div>
+                    <button type="button" onClick={handleSelect}>New Question</button>
+                </div>
+                <div>
+                    <button type="button" onClick={updateQuestionHandler}>Update Question test</button>
+                </div>
             </div>
         </div>
     )

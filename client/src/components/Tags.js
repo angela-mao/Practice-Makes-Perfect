@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {getAllTags} from '../api/TagAPI';
 import Form from 'react-bootstrap/Form';
-import "../styles/Tags.css";
 
 function Tags(props) {
     const [tags, setTags] = useState([]);
