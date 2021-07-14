@@ -1,4 +1,4 @@
-const { getQuestions, addQuestionToDB, addTagsOfQuestionsToDB } = require('../models/questionModel');
+const { getQuestions, addQuestionToDB, addTagsOfQuestionsToDB, findQuestion } = require('../models/questionModel');
 
 
 function getRandomQues(ids, handleResult) {
@@ -31,4 +31,15 @@ function addQuestion(question, tagIDs, handleResult) {
     })
 }
 
-module.exports = { getRandomQues, addQuestion };
+function getQuestion(questionID, handleResult) {
+    if (questionID === '') {
+        handleResult({Question: "No tags were selected", Tag: 'None'});
+    } else {
+        findQuestion(questionID, (err, question) => {
+            if (err) return console.log(err);
+            handleResult(question);
+        });
+    }
+}
+
+module.exports = { getRandomQues, addQuestion, getQuestion };
