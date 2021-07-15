@@ -17,7 +17,7 @@ const Room = () => {
     }, [code, joinRoom]);
 
     const [selectedTags, setTags] = useState({tagIDs: [], tags: []});
-    const [question, setQuestion] = useState({Question: 'Press the "New Question" button', Tag: 'None'});
+    const [question, setQuestion] = useState({QuestionID: 0, Question: 'Press the "New Question" button', Tag: 'None'});
 
     const handleSelect = () => {
         getRandomQues(selectedTags.tagIDs)

@@ -3,7 +3,7 @@ const { getQuestions, addQuestionToDB, addTagsOfQuestionsToDB, findQuestion } = 
 
 function getRandomQues(ids, handleResult) {
     if (!ids) {
-        handleResult({Question: "No tags were selected", Tag: 'None'});
+        handleResult({QuestionID: 0, Question: "No tags were selected", Tag: 'None'});
     } else {
         ids.join(", ");
         getQuestions(ids, (err, questions) => {
