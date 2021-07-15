@@ -10,6 +10,7 @@ module.exports = function(io) {
     })
 
     socket.on('room-info', (otherId, questionId) => {
+      socket.to(otherId).emit('other-info', socket.id);
       socket.to(otherId).emit('new-question', questionId);
     })
 

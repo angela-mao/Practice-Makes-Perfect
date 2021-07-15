@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import {useParams} from "react-router-dom";
 import { SocketContext } from "../context/SocketContext";
+import Video from "./Video";
 import axios from 'axios';
 import DropdownButton from 'react-bootstrap/DropdownButton';
 import Dropdown from 'react-bootstrap/Dropdown'
@@ -11,7 +12,6 @@ const Room = () => {
   const { me, questionId, joinRoom, updateQuestion, setQuestionId } = useContext(SocketContext);
   
   useEffect(() => {
-    console.log("joining " + code);
     joinRoom(code);
   }, [code, joinRoom]);
 
@@ -48,7 +48,7 @@ const Room = () => {
         Socket id: {me}
       </div>
       <div>
-        Question id: {questionId}
+        Question id: {questionId ? questionId : 'no question'}
       </div>
         <DropdownButton
             alignRight
@@ -62,6 +62,7 @@ const Room = () => {
         <div>
           <button onClick={updateQuestionHandler}>Update Question test</button>
         </div>
+        <Video />
     </div>
   )
 }
