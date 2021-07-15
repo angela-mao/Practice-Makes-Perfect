@@ -21,9 +21,13 @@ const ContextProvider = ({ children }) => {
   useEffect(() => {
     const getUserMedia = async () => {
       if (myVideo.current && !myVideo.current.srcObject) { // if video ref is attached
-        const currentStream = await navigator.mediaDevices.getUserMedia(mediaPerms);
-        setStream(currentStream);
-        myVideo.current.srcObject = currentStream;
+        try {
+          const currentStream = await navigator.mediaDevices.getUserMedia(mediaPerms);
+          setStream(currentStream);
+          myVideo.current.srcObject = currentStream;
+        } catch (e) {
+          console.log(e, e.name);
+        }
       }
     };
     getUserMedia();
