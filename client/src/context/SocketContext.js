@@ -61,6 +61,11 @@ const ContextProvider = ({ children }) => {
 
     socket.on('new-question', (questionId) => setQuestionId(questionId));
 
+    socket.on('left-room', (otherId) => {
+      setOther('');
+      otherVideo.current.srcObject = undefined;
+    });
+
     //peerEventHandler();
     if (peer) {
       peer.on('open', (id) => {
