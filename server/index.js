@@ -6,7 +6,6 @@ const cors = require("cors");
 
 const appRoutes = require('./routes/app');
 const apiRoutes = require('./routes/api');
-const { connect } = require("./routes/app");
 
 const io = require("socket.io")(server, {
   cors: {
@@ -39,28 +38,3 @@ server.listen(SOCKET_PORT, () => {
 })
 
 require('./socket/sockets')(io);
-
-app.post('/addentry', (req, res) => {
-  console.log("print");
-  console.log(req.body);
-  const tag =  req.body.tag;
-  const query = "INSERT INTO Tags (Tag) VALUES (?);";
-  connection.query(query, [tag], function (err, result) {
-    if (err) return console.log("error is :" + err);
-    console.log("runs");
-    res.send(query);
-  });
-});
-
-app.post('/deleteentry', (req, res) => {
-  console.log("print");
-  console.log(req.body);
-  const tag =  req.body.tag;
-  let tagID;
-  const query = "DELETE FROM Tags WHERE Tag=(?)";
-  connection.query(query, [tag], function (err, result) {
-    if (err) return console.log("error is :" + err);
-    console.log("runs");
-    res.send(query);
-  });
-});
