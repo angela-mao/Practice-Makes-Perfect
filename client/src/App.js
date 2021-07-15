@@ -1,10 +1,8 @@
-import React, { useContext, useState, useRef, useEffect } from "react";
-import { Switch, Route, Link, useHistory } from "react-router-dom";
+import React, { useState, useRef, useEffect } from "react";
+import { Switch, Route, useHistory } from "react-router-dom";
 import "./styles/App.css";
-import { SocketContext } from "./context/SocketContext";
 import { ContextProvider  } from './context/SocketContext';
 import Room from "./components/Room";
-
 
 async function postRoom() {
   let body = {};
