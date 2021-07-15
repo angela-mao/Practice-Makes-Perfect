@@ -1,0 +1,11 @@
+.Video_Wrapper {
+  margin: 8px 0px;
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+}
+
+.Video {
+  width: 500px;
+  background-color: black;
+}

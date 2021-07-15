@@ -1,13 +1,11 @@
-import React, { useContext, useState, useRef, useEffect } from "react";
-import { Switch, Route, Link, useHistory } from "react-router-dom";
+import React, { useState, useRef, useEffect } from "react";
+import { Switch, Route, useHistory } from "react-router-dom";
 import "./styles/App.css";
-import { SocketContext } from "./context/SocketContext";
+import { ContextProvider  } from './context/SocketContext';
 import Room from "./components/Room";
 
-async function postRoom(socketId) {
-  let body = {
-    socketId
-  }
+async function postRoom() {
+  let body = {};
   let res = await fetch("http://localhost:3000/room", {
     method: 'POST',
     headers: {
@@ -20,25 +18,23 @@ async function postRoom(socketId) {
 }
 
 function App() {
-  const { me } = useContext(SocketContext);
-  const [roomCode, setRoomCode] = useState('');
+  //const [roomCode, setRoomCode] = useState('');
   const inputEl = useRef(null);
   const history = useHistory();
 
   /* Return roomcode */
-  const createRoom = async (socketId) => {
-    let resJson = await postRoom(socketId);
+  const createRoom = async () => {
+    let resJson = await postRoom();
     return resJson.roomCode;
   }
 
   const enterRoom = (roomCode) => {
-    setRoomCode(roomCode);
+    //setRoomCode(roomCode);
     history.push("/" + roomCode);
   }
 
   const handleClick = async (e) => {
-    let roomCode = await createRoom(me);
-    console.log(roomCode);
+    let roomCode = await createRoom();
     enterRoom(roomCode);
   }
 
@@ -71,7 +67,9 @@ function App() {
           {getMenu()}
         </Route>
         <Route path="/:code" >
-          <Room />
+          <ContextProvider>
+            <Room />
+          </ContextProvider>
         </Route>
       </Switch>
     </div>
