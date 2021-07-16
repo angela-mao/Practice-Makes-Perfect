@@ -16,10 +16,10 @@ module.exports = function(io) {
       socket.to(otherId).emit('new-question', questionId);
     })
 
-    socket.on('updateQuestion', (questionId) => {
+    socket.on('updateQuestion', (question) => {
       roomId = Array.from(socket.rooms)[1];
-      console.log(`updating question for room ${roomId} to ${questionId}`);
-      socket.broadcast.to(roomId).emit('new-question', questionId);
+      console.log(`updating question for room ${roomId} to ${question.QuestionID}`);
+      socket.broadcast.to(roomId).emit('new-question', question);
     })
 
     socket.on("disconnect", (reason) => {

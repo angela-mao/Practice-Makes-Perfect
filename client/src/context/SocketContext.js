@@ -13,7 +13,7 @@ const ContextProvider = ({ children }) => {
   const [stream, setStream] = useState(undefined);
   const [me, setMe] = useState('');
   const [other, setOther] = useState('');
-  const [questionId, setQuestionId] = useState(null);
+  const [question, setQuestion] = useState({QuestionID: 0, Question: 'Press the "New Question" button', Tag: 'None'});
 
   const myVideo = useRef(null);
   const otherVideo = useRef(null);
@@ -59,11 +59,11 @@ const ContextProvider = ({ children }) => {
 
     socket.on('join', (socketId) => {
       setOther(socketId);
-      socket.emit('room-info', socketId, questionId);
+      socket.emit('room-info', socketId, question);
       startCall(socketId);
     });
 
-    socket.on('new-question', (questionId) => setQuestionId(questionId));
+    socket.on('new-question', (question) => setQuestion(question));
 
     socket.on('left-room', (otherId) => {
       setOther('');
@@ -98,7 +98,7 @@ const ContextProvider = ({ children }) => {
     } else {
       console.log('answerCall: No peer');
     }
-  }, [questionId, stream]);
+  }, [question, stream]);
 
   const joinRoom = useCallback((roomId) => {
     socket = io(SOCKET_HOST);
@@ -117,10 +117,10 @@ const ContextProvider = ({ children }) => {
       otherVideo,
       me,
       other,
-      questionId,
+      question,
       joinRoom,
       updateQuestion,
-      setQuestionId
+      setQuestion
     }}>
       {children}
     </SocketContext.Provider>

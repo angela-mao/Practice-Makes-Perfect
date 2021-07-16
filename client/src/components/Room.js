@@ -10,9 +10,8 @@ import "../styles/Room.css";
 
 const Room = () => {
   const { code } = useParams();
-  const { me, questionId, joinRoom, updateQuestion, setQuestionId } = useContext(SocketContext);
+  const { me, question, joinRoom, updateQuestion, setQuestion } = useContext(SocketContext);
   const [selectedTags, setTags] = useState({tagIDs: [], tags: []});
-  const [question, setQuestion] = useState({QuestionID: 0, Question: 'Press the "New Question" button', Tag: 'None'});
 
 
   useEffect(() => {
@@ -23,14 +22,10 @@ const Room = () => {
 
   const handleSelect = () => {
       getRandomQues(selectedTags.tagIDs)
-          .then(response => setQuestion(response))
-  }
-
-  const updateQuestionHandler = () => {
-    // Pass user's question Id
-    let questionId = Math.floor(Math.random() * 1000);
-    setQuestionId(questionId);
-    updateQuestion(questionId);
+          .then(response => {
+            setQuestion(response);
+            updateQuestion(response);
+          })
   }
 
   return (
@@ -47,14 +42,11 @@ const Room = () => {
           Socket id: {me}
         </div>
         <div>
-          Question id: {questionId ? questionId : 'no question'}
+          Question id: {question.QuestionID ? question.QuestionID : 'No question'}
         </div>
         <QuestionText questionText={question}/>
         <div>
             <button type="button" onClick={handleSelect}>New Question</button>
-        </div>
-        <div>
-            <button type="button" onClick={updateQuestionHandler}>Update Question test</button>
         </div>
         <Video />
       </div>
