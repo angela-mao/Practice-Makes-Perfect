@@ -25,7 +25,7 @@ Mentees:
 
 ## About the Project
 
-**Technologies Used:** Javascript, React, SocketIO, Express, MySQL.
+**Technologies Used:** Javascript, React, SocketIO, Node.js, Express, MySQL.
 
 As co-op students in uWaterloo, practicing our interviewing skills is vital in helping us land the jobs we want. Practice Makes Perfect (PMP) works with users to sharpen their interviewing skills by testing them with a custom set of questions based on what aspects of interviewing they want to improve. You can practice alone or in a group as multiple people can join one "interview room" and view the same questions. We have an extensive database of coding and behavioural questions that we pull on to create a unique interviewing experience.
 
