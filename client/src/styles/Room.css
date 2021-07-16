@@ -13,10 +13,14 @@ input {
 }
 
 .main {
+    font-family: Roboto;
     margin: auto;
     width: 95vw;
-    height: 85vw;
     background-color: #C4C4C4;
     padding: 30px;
 }
 
+.newQuestion {
+    display: flex;
+    justify-content: center;
+}

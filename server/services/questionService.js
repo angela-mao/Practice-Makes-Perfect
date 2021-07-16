@@ -7,16 +7,16 @@ const {
 } = require("../models/questionModel");
 
 function getRandomQues(ids, handleResult) {
-  if (ids.length === 0) {
-    handleResult({ Question: "No tags were selected", Tag: "None" });
-  } else {
-    ids.join(", ");
-    getQuestions(ids, (err, questions) => {
-      if (err) return console.log(err);
-      const random = Math.floor(Math.random() * questions.length);
-      handleResult(questions[random]);
-    });
-  }
+    if (!ids) {
+        handleResult({QuestionID: 0, Question: "No tags were selected", Tag: 'None'});
+    } else {
+        ids.join(", ");
+        getQuestions(ids, (err, questions) => {
+            if (err) return console.log(err);
+            const random = Math.floor(Math.random() * questions.length);
+            handleResult(questions[random]);
+        });
+    }
 }
 
 function addQuestion(question, tagIDs, handleResult) {
@@ -48,14 +48,14 @@ function getQuestion(questionID, handleResult) {
 }
 
 function listQuestions(tagIDs, handleResult) {
-  const questions = [];
+  let questions = [];
   const tags = tagIDs.split(',');
   for (const tag of tags) {
     listQuestionsFromDB(tag, (error, results) => {
       questions = questions.concat(results);
     });
   }
-  return questions;
+  handleResult(questions)
 }
 
 module.exports = { getRandomQues, addQuestion, getQuestion, listQuestions };

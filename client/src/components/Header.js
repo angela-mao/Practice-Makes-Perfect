@@ -1,19 +1,21 @@
-import React from "react";
+import React, { useState } from "react";
 import Tags from "./Tags";
 import AddTag from "./AddTag";
 import AddQuestion from "./AddQuestion";
-import ListQuestions from "./ListQuestions"
+import ListQuestions from "./ListQuestions";
 import "../styles/Header.css";
 
 function Header(props) {
+  const [tags, setTags] = useState([]);
+
   return (
     <div className="header">
       <div className="logo">PMP</div>
       <div className="tagMenu">
-        <Tags onClick={props.onClick} />
+        <Tags allTags={tags} setTags={setTags} onClick={props.onClick} />
       </div>
       <div className="addTag">
-        <AddTag />
+        <AddTag allTags={tags} setTags={setTags} />
       </div>
       <div className="addQuestion">
         <AddQuestion tagIDs={props.tags.tagIDs} />

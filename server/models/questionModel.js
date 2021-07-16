@@ -2,7 +2,7 @@ var connection = require("./db");
 
 function getQuestions(ids, result) {
   const sql =
-    "SELECT Questions.Question, Tags.Tag FROM Questions " +
+    "SELECT Questions.QuestionID, Questions.Question, Tags.Tag FROM Questions " +
     "INNER JOIN TagsOfQues ON TagsOfQues.QuestionID = Questions.QuestionID " +
     "INNER JOIN Tags ON TagsOfQues.TagID = Tags.TagID WHERE TagsOfQues.TagID IN (?)";
   connection.query(sql, [ids], function (err, questions) {
@@ -35,10 +35,11 @@ function findQuestion(questionID, result) {
 }
 
 function listQuestionsFromDB(tag, result) {
-  const sql = "SELECT Question FROM TagsOfQues INNER JOIN Questions ON TagsOfQues.QuestionID = Questions.QuestionID WHERE TagID = ?";
+  const sql =
+    "SELECT Question FROM TagsOfQues INNER JOIN Questions ON TagsOfQues.QuestionID = Questions.QuestionID WHERE TagID = ?";
   connection.query(sql, tag, function (error, results) {
+    result(error, results);
     console.log(results);
-    result(err, results);
   });
 }
 

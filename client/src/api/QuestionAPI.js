@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export function getRandomQues(selectedTags) {
-   return axios.post('/random', {TagIDs: selectedTags}).then(response => response.data);
+   return axios.get('/random', {params: {TagIDs: selectedTags}}).then(response => response.data);
 }
 
 export function addQuestion(question, tags) {

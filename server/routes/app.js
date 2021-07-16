@@ -60,8 +60,8 @@ router.get("/tags", (req, res) => {
   });
 });
 
-router.post("/random", (req, res) => {
-  getRandomQues(req.body.TagIDs, (question) => {
+router.get('/random', (req, res) => {
+  getRandomQues(req.query.TagIDs, (question) => {
     res.send(question);
   });
 });
@@ -95,7 +95,9 @@ router.get("/getQuestion/:questionID", (req, res) => {
 
 router.get("/listQuestions/:tagIDs", (req, res) => {
   const tagIDs = req.params.tagIDs;
-  res.send(listQuestions(tagIDs));
+  listQuestions(tagIDs, (question) => {
+    res.send(question)
+  });
 });
 
 module.exports = router;
