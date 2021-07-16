@@ -14,9 +14,9 @@ input {
 
 .main {
     font-family: Roboto;
-    margin: auto;
+    margin: 16px auto;
     width: 95vw;
-    background-color: #C4C4C4;
+    background-color: #cfcfcf;
     padding: 30px;
 }
 
