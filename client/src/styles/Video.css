@@ -6,7 +6,15 @@
   justify-content: center;
 }
 
+#me {
+  width: 50%;
+}
+
+#other {
+  width: 50%;
+}
+
 .Video {
-  width: 500px;
+  width: 100%;
   background-color: black;
 }

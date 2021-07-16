@@ -1,3 +1,7 @@
+.Room {
+    height: 100%;
+}
+
 button {
     width: 111px;
     background-color: #F4F6F5;
@@ -16,7 +20,8 @@ input {
     font-family: Roboto;
     margin: 16px auto;
     width: 95vw;
-    background-color: #cfcfcf;
+    height: 80%;
+    outline: solid #dddddd;
     padding: 30px;
 }
 

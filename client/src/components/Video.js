@@ -7,8 +7,12 @@ const Video = () => {
 
   return (
     <div className="Video_Wrapper">
-      <video className="Video" ref={myVideo} muted={true} playsInline={true} autoPlay={true} />
-      <video className="Video" ref={otherVideo} playsInline={true} autoPlay={true} />
+      <div id="me">
+        <video className="Video" ref={myVideo} muted={true} playsInline={true} autoPlay={true} />
+      </div>
+      <div id="other">
+        <video className="Video" ref={otherVideo} playsInline={true} autoPlay={true} />
+      </div>
     </div>
   );
 }

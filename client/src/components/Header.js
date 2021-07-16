@@ -12,14 +12,16 @@ function Header(props) {
             <div className="logo">
                 PMP
             </div>
-            <div className="tagMenu">
-                <Tags allTags={tags} setTags={setTags} onClick={props.onClick}/>
-            </div>
-            <div className="addTag">
-                <AddTag allTags={tags} setTags={setTags}/>
-            </div>
-            <div className="addQuestion">
-                <AddQuestion tagIDs={props.tags.tagIDs}/>
+            <div className="header_control">
+                <div className="tagMenu">
+                    <Tags allTags={tags} setTags={setTags} onClick={props.onClick}/>
+                </div>
+                <div className="addTag">
+                    <AddTag allTags={tags} setTags={setTags}/>
+                </div>
+                <div className="addQuestion">
+                    <AddQuestion tagIDs={props.tags.tagIDs}/>
+                </div>
             </div>
         </div>
     );

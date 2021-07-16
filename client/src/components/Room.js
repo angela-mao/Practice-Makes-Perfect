@@ -36,7 +36,7 @@ const Room = () => {
     }
 
     return (
-        <div>
+        <div class="Room">
             <Header tags={selectedTags} onClick={setTags}/>
             <div className="main">
                 <h1>
