@@ -1,6 +1,6 @@
 import React, {useContext, useEffect, useState} from 'react';
 import {useParams} from "react-router-dom";
-import { SocketContext } from "../context/SocketContext";
+import {SocketContext} from "../context/SocketContext";
 import Video from "./Video";
 import {getRandomQues} from '../api/QuestionAPI';
 import Header from "./Header";
@@ -9,49 +9,43 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import "../styles/Room.css";
 
 const Room = () => {
-  const { code } = useParams();
-  const { me, question, joinRoom, updateQuestion, setQuestion } = useContext(SocketContext);
-  const [selectedTags, setTags] = useState({tagIDs: [], tags: []});
+    const {code} = useParams();
+    const {me, question, joinRoom, updateQuestion, setQuestion} = useContext(SocketContext);
+    const [selectedTags, setTags] = useState({tagIDs: [], tags: []});
 
 
-  useEffect(() => {
-    console.log("joining " + code);
-    joinRoom(code);
-  }, [code, joinRoom]);
+    useEffect(() => {
+        console.log("joining " + code);
+        joinRoom(code);
+    }, [code, joinRoom]);
 
 
-  const handleSelect = () => {
-      getRandomQues(selectedTags.tagIDs)
-          .then(response => {
-            setQuestion(response);
-            updateQuestion(response);
-          })
-  }
+    const handleSelect = () => {
+        getRandomQues(selectedTags.tagIDs)
+            .then(response => {
+                setQuestion(response);
+                updateQuestion(response);
+            })
+    }
 
-  return (
-    <div>
-      <Header tags={selectedTags} onClick={setTags}/>
-      <div className="main">
-        <h1>
-          Room
-        </h1>
+    return (
         <div>
-          Room code: {code}
+            <Header tags={selectedTags} onClick={setTags}/>
+            <div className="main">
+                <h1>
+                    Room
+                </h1>
+                <div>
+                    Room code: {code}
+                </div>
+                <QuestionText questionText={question}/>
+                <Video/>
+                <div className="newQuestion">
+                    <button type="button" onClick={handleSelect}>New Question</button>
+                </div>
+            </div>
         </div>
-        <div>
-          Socket id: {me}
-        </div>
-        <div>
-          Question id: {question.QuestionID ? question.QuestionID : 'No question'}
-        </div>
-        <QuestionText questionText={question}/>
-        <div>
-            <button type="button" onClick={handleSelect}>New Question</button>
-        </div>
-        <Video />
-      </div>
-    </div>
-  )
+    )
 }
 
 export default Room;

@@ -48,13 +48,13 @@ function App() {
     return (
       <div className="App__Menu">
         <h1>Practice Makes Perfect</h1>
-        <button onClick={handleClick}>Create</button>
+        <button className="lobbyButtons" onClick={handleClick}>Create</button>
         <form onSubmit={handleSubmit}>
           <label className="App__Label">
             Code:
             <input type="text" name="name" ref={inputEl}/>
           </label>
-          <input type="submit" value="Join" />
+          <input className="lobbyButtons" type="submit" value="Join" />
         </form>
       </div>
     );
