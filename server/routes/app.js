@@ -1,28 +1,33 @@
-var express = require('express');
+var express = require("express");
 var router = express.Router();
-const { getAllTags, addTag, deleteTag } = require('../services/tagService');
-const { getRandomQues, addQuestion, getQuestion } = require('../services/questionService');
+const { getAllTags, addTag, deleteTag } = require("../services/tagService");
+const {
+  getRandomQues,
+  addQuestion,
+  getQuestion,
+  listQuestions,
+} = require("../services/questionService");
 
 // to send data through post request
 router.use(
-    express.urlencoded({
-      extended: true
-    })
-)
+  express.urlencoded({
+    extended: true,
+  })
+);
 
-router.use(express.json())
+router.use(express.json());
 
 // store rooms
 let rooms = {};
 
 function genRoomCode() {
   let codeLength = 6;
-  let lower = 'abcdefghjkmnpqrstuvwxyz';
-  let upper = 'ABCDEFGHJKMNPQRSTUVWXYZ';
-  let num = '23456789';
+  let lower = "abcdefghjkmnpqrstuvwxyz";
+  let upper = "ABCDEFGHJKMNPQRSTUVWXYZ";
+  let num = "23456789";
   let all = lower + upper + num;
 
-  let code = '';
+  let code = "";
   for (let i = 0, n = all.length; i < codeLength; ++i) {
     code += all.charAt(Math.floor(Math.random() * n));
   }
@@ -43,49 +48,54 @@ router.post("/room", (req, res) => {
   // store room id
   rooms[roomCode] = {
     roomName: roomCode,
-    clients: []
-  }
+    clients: [],
+  };
 
   res.json({ roomCode });
 });
 
-router.get('/tags', (req, res) => {
+router.get("/tags", (req, res) => {
   getAllTags((tags) => {
     res.send(tags);
   });
 });
 
-router.post('/random', (req, res) => {
+router.post("/random", (req, res) => {
   getRandomQues(req.body.TagIDs, (question) => {
     res.send(question);
   });
 });
 
-router.post('/addtag', (req, res) => {
+router.post("/addtag", (req, res) => {
   addTag(req.body.Tag, (result) => {
     res.sendStatus(result);
   });
-})
+});
 
-router.post('/deletetag', (req, res) => {
+router.post("/deletetag", (req, res) => {
   deleteTag(req.body.Tag, (result) => {
     res.sendStatus(result);
   });
-})
+});
 
-router.post('/question', (req, res) => {
+router.post("/question", (req, res) => {
   const { question, tagIDs } = req.body;
-  console.log(req.body)
+  console.log(req.body);
   addQuestion(question, tagIDs, (result) => {
     res.sendStatus(result);
   });
 });
 
-router.get('/getQuestion/:questionID', (req, res) => {
+router.get("/getQuestion/:questionID", (req, res) => {
   const questionID = req.params.questionID;
   getQuestion(questionID, (question) => {
     res.send(question);
-  })
-})
+  });
+});
+
+router.get("/listQuestions/:tagIDs", (req, res) => {
+  const tagIDs = req.params.tagIDs;
+  res.send(listQuestions(tagIDs));
+});
 
 module.exports = router;
