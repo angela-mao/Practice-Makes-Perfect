@@ -5,12 +5,14 @@ import Video from "./Video";
 import {getRandomQues} from '../api/QuestionAPI';
 import Header from "./Header";
 import QuestionText from "./QuestionText";
+import Button from 'react-bootstrap/Button';
+import FileCopy from '@material-ui/icons/FileCopyOutlined';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "../styles/Room.css";
 
 const Room = () => {
     const {code} = useParams();
-    const {me, question, joinRoom, updateQuestion, setQuestion} = useContext(SocketContext);
+    const {question, joinRoom, updateQuestion, setQuestion} = useContext(SocketContext);
     const [selectedTags, setTags] = useState({tagIDs: [], tags: []});
 
 
@@ -28,15 +30,20 @@ const Room = () => {
             })
     }
 
+    const copyButton = () => {
+        let url = window.location.origin;
+        navigator.clipboard.writeText(url + '/' + code);
+    }
+
     return (
         <div>
             <Header tags={selectedTags} onClick={setTags}/>
             <div className="main">
                 <h1>
-                    Room
+                    Interview Room
                 </h1>
                 <div>
-                    Room code: {code}
+                    Room code: <Button variant="outline-primary" onClick={copyButton}>{code} <FileCopy /></Button>
                 </div>
                 <QuestionText questionText={question}/>
                 <Video/>
