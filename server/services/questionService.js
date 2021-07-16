@@ -25,9 +25,10 @@ function addQuestion(question, tagIDs, handleResult) {
             console.log(`tag: ${tagID}`);
             addTagsOfQuestionsToDB(result.insertId, tagID, (err) => {
                 if (err) return console.log(err);
-                handleResult(200);
+                
             });
         }
+        handleResult(200);
     })
 }
 
