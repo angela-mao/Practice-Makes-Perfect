@@ -1,13 +1,14 @@
 import React, {useRef, useState} from "react";
 import {addTag, deleteTag} from "../api/TagAPI";
 
-const AddTag = () => {
+function AddTag(props) {
     const [inputVal, setInputVal] = useState('');
     const tagInput = useRef('');
 
     const handleAdd = () => {
         tagInput.current.value='';
         addTag(inputVal);
+        props.setTags([...props.allTags, inputVal]);
     }
 
     // const handleDelete = () => {

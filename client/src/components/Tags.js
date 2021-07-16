@@ -3,14 +3,12 @@ import {getAllTags} from '../api/TagAPI';
 import Form from 'react-bootstrap/Form';
 
 function Tags(props) {
-    const [tags, setTags] = useState([]);
-
     useEffect(() => {
         getAllTags()
-            .then(response => setTags(response));
-    }, []);
+            .then(response => props.setTags(response));
+    }, [props]);
 
-    let tagsArray = tags.map((tag, index) => <option key={index} value={JSON.stringify(tag.TagID)}>{tag.Tag}</option>);
+    let tagsArray = props.allTags.map((tag, index) => <option key={index} value={JSON.stringify(tag.TagID)}>{tag.Tag}</option>);
 
     const handleSelect = (e) => {
         const selected = e.target.selectedOptions;
