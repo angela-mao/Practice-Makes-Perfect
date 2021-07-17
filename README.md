@@ -33,7 +33,7 @@ Users can also add their categories and questions to make a more diverse questio
 
 ## Demo
 
-![Picture of interview room](./images/interviewRoom)
+![Picture of interview room](https://github.com/angela-mao/Practice-Makes-Perfect/blob/main/images/interviewRoom.png)
 
 ### Quickstart Guide
 
