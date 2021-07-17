@@ -33,7 +33,7 @@ Users can also add their categories and questions to make a more diverse questio
 
 ## Demo
 
-add pictures here later
+![Picture of interview room](./images/interviewRoom)
 
 ### Quickstart Guide
 
